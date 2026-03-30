@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "8b8e0221-d571-4fd1-876b-48b46fa22613",
+      "agentId": "main",
+      "sessionKey": "agent:main:main",
+      "name": "日志每日总结",
+      "enabled": true,
+      "createdAtMs": 1773907318551,
+      "updatedAtMs": 1774810860788,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 3 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "执行每日日志总结任务：\n1. 读取昨日的 memory/YYYY-MM-DD.md（日期为昨天）\n2. 读取 journal/realtime.txt\n3. 将两份内容总结成一段话，开头不需要带时间，不要md格式。\n4. 不读取record.py的内容，直接执行命令python record.py journal/daily.txt {总结}",
+        "model": "volcengine-plan/kimi-k2.5"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "bestEffort": false
+      },
+      "state": {
+        "nextRunAtMs": 1774897200000,
+        "lastRunAtMs": 1774810800015,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 60773,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 11,
+        "lastError": "Delivering to Feishu requires target <chatId|user:openId|chat:chatId>"
+      },
+      "deleteAfterRun": false
+    },
+    {
+      "id": "00086bbd-d318-4035-a1bc-1a8d057bd8b4",
+      "agentId": "main",
+      "sessionKey": "agent:main:main",
+      "name": "日志每周总结",
+      "enabled": true,
+      "createdAtMs": 1773907318577,
+      "updatedAtMs": 1774821632252,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 6 * * 1",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "执行每周日志总结任务：\n1. 读取 journal/realtime.txt\n2. 读取 journal/daily.txt\n3. 将两份内容总结成一段话，开头不需要带时间，不要md格式。\n4. 不读取record.py的内容，直接执行命令python record.py journal/weekly.txt {总结}",
+        "model": "volcengine-plan/kimi-k2.5"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "bestEffort": false
+      },
+      "state": {
+        "nextRunAtMs": 1775426400000,
+        "lastRunAtMs": 1774821600013,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 32239,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 4,
+        "lastError": "Delivering to Feishu requires target <chatId|user:openId|chat:chatId>"
+      },
+      "deleteAfterRun": false
+    },
+    {
+      "id": "2ad3f7f5-3f99-4cf2-86a5-33d2a452f46c",
+      "agentId": "main",
+      "sessionKey": "agent:main:main",
+      "name": "日志每月总结",
+      "enabled": true,
+      "createdAtMs": 1773907318597,
+      "updatedAtMs": 1774247212365,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 12 1 * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "执行每月日志总结任务：\n1. 读取 journal/daily.txt\n2. 读取 journal/weekly.txt\n3. 将两份内容总结成一段话，开头不需要带时间，不要md格式。\n4. 不读取record.py的内容，直接执行命令python record.py journal/monthly.txt {总结}",
+        "model": "volcengine-plan/kimi-k2.5"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "bestEffort": false
+      },
+      "state": {
+        "nextRunAtMs": 1775017800000
+      },
+      "deleteAfterRun": false
+    }
+  ]
+}
