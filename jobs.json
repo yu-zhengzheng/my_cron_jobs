@@ -8,7 +8,7 @@
       "name": "日志每日总结",
       "enabled": true,
       "createdAtMs": 1773907318551,
-      "updatedAtMs": 1774810860788,
+      "updatedAtMs": 1775113757944,
       "schedule": {
         "kind": "cron",
         "expr": "0 3 * * *",
@@ -23,18 +23,19 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "last",
+        "channel": "feishu",
+        "to": "ou_7715c09f65f31f061daa156fc38e9651",
         "bestEffort": false
       },
       "state": {
-        "nextRunAtMs": 1774897200000,
-        "lastRunAtMs": 1774810800015,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 60773,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 11,
-        "lastError": "Delivering to Feishu requires target <chatId|user:openId|chat:chatId>"
+        "nextRunAtMs": 1775156400000,
+        "lastRunAtMs": 1775113571694,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 186250,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       },
       "deleteAfterRun": false
     },
@@ -45,7 +46,7 @@
       "name": "日志每周总结",
       "enabled": true,
       "createdAtMs": 1773907318577,
-      "updatedAtMs": 1774821632252,
+      "updatedAtMs": 1775113310139,
       "schedule": {
         "kind": "cron",
         "expr": "0 6 * * 1",
@@ -60,7 +61,8 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "last",
+        "channel": "feishu",
+        "to": "ou_7715c09f65f31f061daa156fc38e9651",
         "bestEffort": false
       },
       "state": {
@@ -82,7 +84,7 @@
       "name": "日志每月总结",
       "enabled": true,
       "createdAtMs": 1773907318597,
-      "updatedAtMs": 1774247212365,
+      "updatedAtMs": 1775113310170,
       "schedule": {
         "kind": "cron",
         "expr": "30 12 1 * *",
@@ -97,11 +99,19 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "last",
+        "channel": "feishu",
+        "to": "ou_7715c09f65f31f061daa156fc38e9651",
         "bestEffort": false
       },
       "state": {
-        "nextRunAtMs": 1775017800000
+        "nextRunAtMs": 1777609800000,
+        "lastRunAtMs": 1775017800029,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 55946,
+        "lastError": "Delivering to Feishu requires target <chatId|user:openId|chat:chatId>",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
       },
       "deleteAfterRun": false
     }
