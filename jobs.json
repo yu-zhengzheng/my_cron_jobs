@@ -8,7 +8,7 @@
       "name": "日志每日总结",
       "enabled": true,
       "createdAtMs": 1773907318551,
-      "updatedAtMs": 1775113757944,
+      "updatedAtMs": 1775128895567,
       "schedule": {
         "kind": "cron",
         "expr": "0 3 * * *",
@@ -18,7 +18,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "执行每日日志总结任务：\n1. 读取昨日的 memory/YYYY-MM-DD.md（日期为昨天）\n2. 读取 journal/realtime.txt\n3. 将两份内容总结成一段话，开头不需要带时间，不要md格式。\n4. 不读取record.py的内容，直接执行命令python record.py journal/daily.txt {总结}",
+        "message": "执行每日日志总结任务：\n1. 读取MEMORY.md临时区\n2. 读取 journal/realtime.txt最后50行\n3. 将两份内容总结成一段话，开头不需要带时间，不要md格式，结尾不准换行。\n4. 不读取record.py的内容，直接执行命令python record.py journal/daily.txt {总结}",
         "model": "volcengine-plan/kimi-k2.5"
       },
       "delivery": {
@@ -46,7 +46,7 @@
       "name": "日志每周总结",
       "enabled": true,
       "createdAtMs": 1773907318577,
-      "updatedAtMs": 1775113310139,
+      "updatedAtMs": 1775128895583,
       "schedule": {
         "kind": "cron",
         "expr": "0 6 * * 1",
@@ -56,7 +56,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "执行每周日志总结任务：\n1. 读取 journal/realtime.txt\n2. 读取 journal/daily.txt\n3. 将两份内容总结成一段话，开头不需要带时间，不要md格式。\n4. 不读取record.py的内容，直接执行命令python record.py journal/weekly.txt {总结}",
+        "message": "执行每周日志总结任务：\n1. 读取 journal/realtime.txt最后400行\n2. 读取 journal/daily.txt最后8行\n3. 将两份内容总结成一段话，开头不需要带时间，不要md格式，结尾不准换行。\n4. 不读取record.py的内容，直接执行命令python record.py journal/weekly.txt {总结}",
         "model": "volcengine-plan/kimi-k2.5"
       },
       "delivery": {
@@ -84,7 +84,7 @@
       "name": "日志每月总结",
       "enabled": true,
       "createdAtMs": 1773907318597,
-      "updatedAtMs": 1775113310170,
+      "updatedAtMs": 1775128895594,
       "schedule": {
         "kind": "cron",
         "expr": "30 12 1 * *",
@@ -94,7 +94,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "执行每月日志总结任务：\n1. 读取 journal/daily.txt\n2. 读取 journal/weekly.txt\n3. 将两份内容总结成一段话，开头不需要带时间，不要md格式。\n4. 不读取record.py的内容，直接执行命令python record.py journal/monthly.txt {总结}",
+        "message": "执行每月日志总结任务：\n1. 读取 journal/daily.txt最后32行\n2. 读取 journal/weekly.txt最后5行\n3. 将两份内容总结成一段话，开头不需要带时间，不要md格式，结尾不准换行。\n4. 不读取record.py的内容，直接执行命令python record.py journal/monthly.txt {总结}",
         "model": "volcengine-plan/kimi-k2.5"
       },
       "delivery": {
@@ -114,6 +114,36 @@
         "consecutiveErrors": 1
       },
       "deleteAfterRun": false
+    },
+    {
+      "id": "f228a24b-afe9-47c9-b84d-be6f48ad8ef4",
+      "agentId": "main",
+      "sessionKey": "agent:main:main",
+      "name": "贴吧每日摘要",
+      "enabled": true,
+      "createdAtMs": 1775123353647,
+      "updatedAtMs": 1775123550512,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 4 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "执行贴吧每日摘要任务：\n\n## 用户 open_id\n- ou_7715c09f65f31f061daa156fc38e9651\n\n## 任务步骤\n1. **从向量库获取 TB_TOKEN**：运行 `python memory/memory_recall.py \"贴吧 TB_TOKEN 密钥\"`，从结果中提取 TB_TOKEN=后面的值\n2. 使用 TB_TOKEN 调用 GET /c/f/frs/page_claw?sort_type=0 获取最新帖子列表\n3. 筛选与 AI、Agent、未来、人类与人工智能交互 相关的内容\n4. 对筛选出的帖子，调用 GET /c/f/pb/page_claw?pn=1&kz={thread_id}&r=0 获取详细内容\n5. 整理成摘要，包含：帖子标题、作者、核心观点、讨论价值\n6. 通过飞书发送 DM 给用户，格式：\n   - 标题：【贴吧每日摘要】日期\n   - 内容：筛选出的有价值内容列表，每条包含帖子链接\n\n## 贴吧 API 调用示例\n获取帖子列表：\ncurl -H \"Authorization: {TB_TOKEN}\" \"https://tieba.baidu.com/c/f/frs/page_claw?sort_type=0\"\n\n获取帖子详情：\ncurl -H \"Authorization: {TB_TOKEN}\" \"https://tieba.baidu.com/c/f/pb/page_claw?pn=1&kz=_THREAD_ID_&r=0\"\n\n## 飞书发送格式\n使用 feishu 工具发送消息到 user:ou_7715c09f65f31f061daa156fc38e9651",
+        "model": "volcengine-plan/kimi-k2.5"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "feishu",
+        "to": "user:ou_7715c09f65f31f061daa156fc38e9651",
+        "bestEffort": false
+      },
+      "state": {
+        "nextRunAtMs": 1775160000000
+      }
     }
   ]
 }
