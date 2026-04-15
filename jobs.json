@@ -116,11 +116,11 @@
       "deleteAfterRun": false
     },
     {
-      "id": "f7540a71-465c-44ab-a510-3788638d94f6",
+      "id": "f228a24b-afe9-47c9-b84d-be6f48ad8ef4",
       "agentId": "main",
       "name": "贴吧每日摘要",
       "enabled": true,
-      "createdAtMs": 1776248816827,
+      "createdAtMs": 1776248334686,
       "updatedAtMs": 1776249076400,
       "schedule": {
         "kind": "cron",
@@ -136,7 +136,7 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "last",
+        "channel": "feishu",
         "to": "ou_7715c09f65f31f061daa156fc38e9651"
       },
       "state": {
