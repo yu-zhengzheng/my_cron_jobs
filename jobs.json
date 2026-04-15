@@ -8,7 +8,7 @@
       "name": "日志每日总结",
       "enabled": true,
       "createdAtMs": 1773907318551,
-      "updatedAtMs": 1775703917159,
+      "updatedAtMs": 1776193465612,
       "schedule": {
         "kind": "cron",
         "expr": "0 3 * * *",
@@ -19,7 +19,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "执行每日日志总结任务：\n1. 读取 MEMORY.md 临时区\n2. 读取 journal/realtime.txt 最后 50 行\n3. 将两份内容总结成一段话，开头不需要带时间，不要 md 格式，结尾不准换行。\n4. 不读取 record.py 的内容，直接执行命令 python record.py journal/daily.txt {总结}",
-        "model": "volcengine-plan/kimi-k2.5"
+        "model": "shengsuanyun/minimax/minimax-m2.7"
       },
       "delivery": {
         "mode": "announce",
@@ -28,11 +28,11 @@
         "bestEffort": false
       },
       "state": {
-        "nextRunAtMs": 1775761200000,
-        "lastRunAtMs": 1775674800010,
+        "nextRunAtMs": 1776279600000,
+        "lastRunAtMs": 1776193200014,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 27042,
+        "lastDurationMs": 265598,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -46,7 +46,7 @@
       "name": "日志每周总结",
       "enabled": true,
       "createdAtMs": 1773907318577,
-      "updatedAtMs": 1775703922203,
+      "updatedAtMs": 1776070118057,
       "schedule": {
         "kind": "cron",
         "expr": "0 6 * * 1",
@@ -57,7 +57,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "执行每周日志总结任务：\n1. 读取 journal/realtime.txt 最后 400 行\n2. 读取 journal/daily.txt 最后 8 行\n3. 将两份内容总结成一段话，开头不需要带时间，不要 md 格式，结尾不准换行。\n4. 不读取 record.py 的内容，直接执行命令 python record.py journal/weekly.txt {总结}",
-        "model": "volcengine-plan/kimi-k2.5"
+        "model": "shengsuanyun/minimax/minimax-m2.7"
       },
       "delivery": {
         "mode": "announce",
@@ -66,11 +66,11 @@
         "bestEffort": false
       },
       "state": {
-        "nextRunAtMs": 1776031200000,
-        "lastRunAtMs": 1775426400018,
+        "nextRunAtMs": 1776636000000,
+        "lastRunAtMs": 1776070079546,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 147352,
+        "lastDurationMs": 38511,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -84,7 +84,7 @@
       "name": "日志每月总结",
       "enabled": true,
       "createdAtMs": 1773907318597,
-      "updatedAtMs": 1775703927285,
+      "updatedAtMs": 1776067062234,
       "schedule": {
         "kind": "cron",
         "expr": "30 12 1 * *",
@@ -95,7 +95,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "执行每月日志总结任务：\n1. 读取 journal/daily.txt 最后 32 行\n2. 读取 journal/weekly.txt 最后 5 行\n3. 将两份内容总结成一段话，开头不需要带时间，不要 md 格式，结尾不准换行。\n4. 不读取 record.py 的内容，直接执行命令 python record.py journal/monthly.txt {总结}",
-        "model": "volcengine-plan/kimi-k2.5"
+        "model": "shengsuanyun/minimax/minimax-m2.7"
       },
       "delivery": {
         "mode": "announce",
@@ -116,13 +116,12 @@
       "deleteAfterRun": false
     },
     {
-      "id": "f228a24b-afe9-47c9-b84d-be6f48ad8ef4",
+      "id": "7be3eb91-e357-45e2-bb23-ab28c4827437",
       "agentId": "main",
-      "sessionKey": "agent:main:main",
       "name": "贴吧每日摘要",
       "enabled": true,
-      "createdAtMs": 1775123353647,
-      "updatedAtMs": 1775705569345,
+      "createdAtMs": 1776248334686,
+      "updatedAtMs": 1776248334686,
       "schedule": {
         "kind": "cron",
         "expr": "0 4 * * *",
@@ -132,26 +131,17 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "执行贴吧每日摘要任务：\n\n## 用户 open_id\n- ou_7715c09f65f31f061daa156fc38e9651\n\n## 硬性约束（必须遵守）\n1. **禁止创建任何脚本文件**：不允许创建 .py、.sh、.bat 等文件\n2. **禁止写入任何数据文件**：不允许创建 .txt、.json、.log 等文件到磁盘\n3. **必须阅读帖子正文**：只基于标题筛选是禁止的，必须调用详情 API 获取帖子内容\n4. **所有操作在内存中完成**：使用变量存储数据，不落盘\n5. **禁止使用 sessions_send**：不要尝试发送消息，cron delivery 会自动处理\n\n## 任务步骤\n1. **从向量库获取 TB_TOKEN**：运行 `python memory/memory_recall.py \"贴吧 TB_TOKEN 密钥\"`，从结果中提取 TB_TOKEN=后面的值\n2. 使用 TB_TOKEN 调用 GET https://tieba.baidu.com/c/f/frs/page_claw?sort_type=0 获取最新帖子列表\n3. 初步筛选与 AI、Agent、未来、人类与人工智能交互 相关的标题\n4. **对每个初筛通过的帖子**，调用 GET https://tieba.baidu.com/c/f/pb/page_claw?pn=1&kz={thread_id}&r=0 获取详细内容\n5. **基于正文内容做二次筛选**：只保留正文确实与主题相关的帖子\n6. 整理成摘要格式（不要发送，只输出到 stdout）：\n   - 标题：【贴吧每日摘要】日期\n   - 内容：筛选出的有价值内容列表，每条包含帖子链接\n\n## 输出\n将摘要内容打印到标准输出，cron 的 delivery 会自动通过飞书发送给用户。",
-        "model": "volcengine-plan/kimi-k2.5"
+        "message": "[cron:tieba-daily] 执行贴吧每日摘要。筛选标准：回复数≥10，有具体案例/观点交锋/信息增量。排除：车轱辘话/人设表演/元讨论/假二选一/无结论循环。步骤：1.获取 TB_TOKEN 2.获取帖子列表 3.初筛回复≥10 4.获取详情 5.精筛 6.按回复数排序。输出：【贴吧每日摘要】日期，X 个高价值帖子，标题 + 回复数 + 核心观点 + 链接。筛选说明：浏览 N 初筛 M 精筛 X 排除 Y。",
+        "model": "shengsuanyun/minimax/minimax-m2.7"
       },
       "delivery": {
         "mode": "announce",
         "channel": "feishu",
-        "to": "ou_7715c09f65f31f061daa156fc38e9651",
-        "bestEffort": false
+        "to": "ou_7715c09f65f31f061daa156fc38e9651"
       },
       "state": {
-        "nextRunAtMs": 1775764800000,
-        "lastRunAtMs": 1775678400021,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 920297,
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
-      },
-      "deleteAfterRun": false
+        "nextRunAtMs": 1776283200000
+      }
     }
   ]
 }
