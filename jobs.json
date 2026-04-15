@@ -118,10 +118,11 @@
     {
       "id": "f228a24b-afe9-47c9-b84d-be6f48ad8ef4",
       "agentId": "main",
+      "sessionKey": "agent:main:main",
       "name": "贴吧每日摘要",
       "enabled": true,
-      "createdAtMs": 1776248334686,
-      "updatedAtMs": 1776249076400,
+      "createdAtMs": 1775123353647,
+      "updatedAtMs": 1776251022877,
       "schedule": {
         "kind": "cron",
         "expr": "0 4 * * *",
@@ -140,8 +141,16 @@
         "to": "ou_7715c09f65f31f061daa156fc38e9651"
       },
       "state": {
-        "nextRunAtMs": 1776283200000
-      }
+        "nextRunAtMs": 1776283200000,
+        "lastRunAtMs": 1776197102583,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 140044,
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0
+      },
+      "deleteAfterRun": false
     }
   ]
 }
