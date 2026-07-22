@@ -1,156 +1,112 @@
 {
-  "version": 1,
-  "jobs": [
-    {
-      "id": "8b8e0221-d571-4fd1-876b-48b46fa22613",
-      "agentId": "main",
-      "sessionKey": "agent:main:main",
-      "name": "日志每日总结",
-      "enabled": true,
-      "createdAtMs": 1773907318551,
-      "updatedAtMs": 1776193465612,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 3 * * *",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "执行每日日志总结任务：\n1. 读取 MEMORY.md 临时区\n2. 读取 journal/realtime.txt 最后 50 行\n3. 将两份内容总结成一段话，开头不需要带时间，不要 md 格式，结尾不准换行。\n4. 不读取 record.py 的内容，直接执行命令 python record.py journal/daily.txt {总结}",
-        "model": "shengsuanyun/minimax/minimax-m2.7"
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "feishu",
-        "to": "ou_7715c09f65f31f061daa156fc38e9651",
-        "bestEffort": false
-      },
-      "state": {
-        "nextRunAtMs": 1776279600000,
-        "lastRunAtMs": 1776193200014,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 265598,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true
-      },
-      "deleteAfterRun": false
-    },
-    {
-      "id": "00086bbd-d318-4035-a1bc-1a8d057bd8b4",
-      "agentId": "main",
-      "sessionKey": "agent:main:main",
-      "name": "日志每周总结",
-      "enabled": true,
-      "createdAtMs": 1773907318577,
-      "updatedAtMs": 1776070118057,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 6 * * 1",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "执行每周日志总结任务：\n1. 读取 journal/realtime.txt 最后 400 行\n2. 读取 journal/daily.txt 最后 8 行\n3. 将两份内容总结成一段话，开头不需要带时间，不要 md 格式，结尾不准换行。\n4. 不读取 record.py 的内容，直接执行命令 python record.py journal/weekly.txt {总结}",
-        "model": "shengsuanyun/minimax/minimax-m2.7"
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "feishu",
-        "to": "ou_7715c09f65f31f061daa156fc38e9651",
-        "bestEffort": false
-      },
-      "state": {
-        "nextRunAtMs": 1776636000000,
-        "lastRunAtMs": 1776070079546,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 38511,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true
-      },
-      "deleteAfterRun": false
-    },
-    {
-      "id": "2ad3f7f5-3f99-4cf2-86a5-33d2a452f46c",
-      "agentId": "main",
-      "sessionKey": "agent:main:main",
-      "name": "日志每月总结",
-      "enabled": true,
-      "createdAtMs": 1773907318597,
-      "updatedAtMs": 1776067062234,
-      "schedule": {
-        "kind": "cron",
-        "expr": "30 12 1 * *",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "执行每月日志总结任务：\n1. 读取 journal/daily.txt 最后 32 行\n2. 读取 journal/weekly.txt 最后 5 行\n3. 将两份内容总结成一段话，开头不需要带时间，不要 md 格式，结尾不准换行。\n4. 不读取 record.py 的内容，直接执行命令 python record.py journal/monthly.txt {总结}",
-        "model": "shengsuanyun/minimax/minimax-m2.7"
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "feishu",
-        "to": "ou_7715c09f65f31f061daa156fc38e9651",
-        "bestEffort": false
-      },
-      "state": {
-        "nextRunAtMs": 1777609800000,
-        "lastRunAtMs": 1775017800029,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 55946,
-        "lastError": "Delivering to Feishu requires target <chatId|user:openId|chat:chatId>",
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1
-      },
-      "deleteAfterRun": false
-    },
-    {
-      "id": "f228a24b-afe9-47c9-b84d-be6f48ad8ef4",
-      "agentId": "main",
-      "sessionKey": "agent:main:main",
-      "name": "贴吧每日摘要",
-      "enabled": true,
-      "createdAtMs": 1775123353647,
-      "updatedAtMs": 1776251022877,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 4 * * *",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "执行贴吧每日摘要任务：\n\n## 用户 open_id\n- ou_7715c09f65f31f061daa156fc38e9651\n\n## 硬性约束（必须遵守）\n1. **禁止创建任何脚本文件**：不允许创建 .py、.sh、.bat 等文件\n2. **禁止写入任何数据文件**：不允许创建 .txt、.json、.log 等文件到磁盘\n3. **必须阅读帖子正文**：只基于标题筛选是禁止的，必须调用详情 API 获取帖子内容\n4. **所有操作在内存中完成**：使用变量存储数据，不落盘\n5. **禁止使用 sessions_send**：不要尝试发送消息，cron delivery 会自动处理\n\n## 任务步骤\n1. **从向量库获取 TB_TOKEN**：运行 `python memory/memory_recall.py \"贴吧 TB_TOKEN 密钥\"`，从结果中提取 TB_TOKEN=后面的值\n2. 使用 TB_TOKEN 调用 GET https://tieba.baidu.com/c/f/frs/page_claw?sort_type=0 获取最新帖子列表\n3. 初步筛选与 AI、Agent、未来、人类与人工智能交互 相关的标题\n4. **对每个初筛通过的帖子**，调用 GET https://tieba.baidu.com/c/f/pb/page_claw?pn=1&kz={thread_id}&r=0 获取详细内容\n5. **基于正文内容做二次筛选**：只保留正文确实与主题相关的帖子\n6. 整理成摘要格式（不要发送，只输出到 stdout）：\n - 标题：【贴吧每日摘要】日期\n - 内容：筛选出的有价值内容列表，每条包含帖子链接\n\n## 输出\n将摘要内容打印到标准输出，cron 的 delivery 会自动通过飞书发送给用户",
-        "model": "shengsuanyun/minimax/minimax-m2.7"
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "feishu",
-        "to": "ou_7715c09f65f31f061daa156fc38e9651"
-      },
-      "state": {
-        "nextRunAtMs": 1776283200000,
-        "lastRunAtMs": 1776197102583,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 140044,
-        "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0
-      },
-      "deleteAfterRun": false
-    }
-  ]
+  "id": "58724b14-dc64-48c1-b17d-066f6f59b9e3",
+  "name": "日志每日总结",
+  "enabled": true,
+  "deleteAfterRun": false,
+  "createdAtMs": 1781270866825,
+  "agentId": "main",
+  "sessionKey": "agent:main:main",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 3 * * *",
+    "tz": "Asia/Shanghai"
+  },
+  "sessionTarget": "isolated",
+  "wakeMode": "now",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "执行每日日志总结任务：\n1. 读取 MEMORY.md 临时区\n2. 读取 journal/realtime.txt 最后 50 行\n3. 将两份内容总结成一段话，开头不需要带时间，不要 md 格式，结尾不准换行。\n4. 不读取 record.py 的内容，直接执行命令 python record.py journal/daily.txt {总结}",
+    "model": "visioncoder/gpt-5.5"
+  },
+  "delivery": {
+    "mode": "announce",
+    "channel": "feishu",
+    "to": "ou_7715c09f65f31f061daa156fc38e9651",
+    "bestEffort": false
+  },
+  "state": {}
+}
+{
+  "id": "e4a5a20e-f1fa-43d0-8157-6d8a75093e28",
+  "name": "日志每周总结",
+  "enabled": true,
+  "deleteAfterRun": false,
+  "createdAtMs": 1781270866846,
+  "agentId": "main",
+  "sessionKey": "agent:main:main",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 6 * * 1",
+    "tz": "Asia/Shanghai"
+  },
+  "sessionTarget": "isolated",
+  "wakeMode": "now",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "执行每周日志总结任务：\n1. 读取 journal/realtime.txt 最后 400 行\n2. 读取 journal/daily.txt 最后 8 行\n3. 将两份内容总结成一段话，开头不需要带时间，不要 md 格式，结尾不准换行。\n4. 不读取 record.py 的内容，直接执行命令 python record.py journal/weekly.txt {总结}",
+    "model": "visioncoder/gpt-5.5"
+  },
+  "delivery": {
+    "mode": "announce",
+    "channel": "feishu",
+    "to": "ou_7715c09f65f31f061daa156fc38e9651",
+    "bestEffort": false
+  },
+  "state": {}
+}
+{
+  "id": "e69cfbde-7ec7-4dd0-8690-c256e1609fec",
+  "name": "日志每月总结",
+  "enabled": true,
+  "deleteAfterRun": false,
+  "createdAtMs": 1781270866865,
+  "agentId": "main",
+  "sessionKey": "agent:main:main",
+  "schedule": {
+    "kind": "cron",
+    "expr": "30 12 1 * *",
+    "tz": "Asia/Shanghai"
+  },
+  "sessionTarget": "isolated",
+  "wakeMode": "now",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "执行每月日志总结任务：\n1. 读取 journal/daily.txt 最后 32 行\n2. 读取 journal/weekly.txt 最后 5 行\n3. 将两份内容总结成一段话，开头不需要带时间，不要 md 格式，结尾不准换行。\n4. 不读取 record.py 的内容，直接执行命令 python record.py journal/monthly.txt {总结}",
+    "model": "visioncoder/gpt-5.5"
+  },
+  "delivery": {
+    "mode": "announce",
+    "channel": "feishu",
+    "to": "ou_7715c09f65f31f061daa156fc38e9651",
+    "bestEffort": false
+  },
+  "state": {}
+}
+{
+  "id": "e1490be8-956b-4a5c-bb6b-072cfcff615a",
+  "name": "贴吧每日摘要",
+  "enabled": true,
+  "deleteAfterRun": false,
+  "createdAtMs": 1781270866875,
+  "agentId": "main",
+  "sessionKey": "agent:main:main",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 4 * * *",
+    "tz": "Asia/Shanghai"
+  },
+  "sessionTarget": "isolated",
+  "wakeMode": "now",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "执行贴吧每日摘要任务：\n\n## 用户 open_id\n- ou_7715c09f65f31f061daa156fc38e9651\n\n## 硬性约束（必须遵守）\n1. **禁止创建任何脚本文件**：不允许创建 .py、.sh、.bat 等文件\n2. **禁止写入任何数据文件**：不允许创建 .txt、.json、.log 等文件到磁盘\n3. **必须阅读帖子正文**：只基于标题筛选是禁止的，必须调用详情 API 获取帖子内容\n4. **所有操作在内存中完成**：使用变量存储数据，不落盘\n5. **禁止使用 sessions_send**：不要尝试发送消息，cron delivery 会自动处理\n\n## 任务步骤\n1. **从向量库获取 TB_TOKEN**：运行 `python memory/memory_recall.py \"贴吧 TB_TOKEN 密钥\"`，从结果中提取 TB_TOKEN=***\n2. 使用 TB_TOKEN 调用 GET https://tieba.baidu.com/c/f/frs/page_claw?sort_type=0 获取最新帖子列表\n3. 初步筛选与 AI、Agent、未来、人类与人工智能交互 相关的标题\n4. **对每个初筛通过的帖子**，调用 GET https://tieba.baidu.com/c/f/pb/page_claw?pn=1&kz={thread_id}&r=0 获取详细内容\n5. **基于正文内容做二次筛选**：只保留正文确实与主题相关的帖子\n6. 整理成摘要格式（不要发送，只输出到 stdout）：\n - 标题：【贴吧每日摘要】日期\n - 内容：筛选出的有价值内容列表，每条包含帖子链接\n\n## 输出\n将摘要内容打印到标准输出，cron 的 delivery 会自动通过飞书发送给用户",
+    "model": "visioncoder/gpt-5.5"
+  },
+  "delivery": {
+    "mode": "announce",
+    "channel": "feishu",
+    "to": "ou_185035054290c7137a25b44ae741f7fc",
+    "bestEffort": false
+  },
+  "state": {}
 }
